@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button, Select, message, Typography, Space, Tag } from "antd";
+import {
+  Card,
+  Button,
+  Select,
+  message,
+  Typography,
+  Space,
+  Tag,
+  Row,
+  Col,
+} from "antd";
 import Navbar from "../components/Navbar";
 
 const { Title, Text } = Typography;
@@ -73,53 +83,84 @@ const FlashCards = () => {
   const renderGameContent = () => {
     const currentWord = words[currentWordIndex];
     return (
-      <Card style={{ width: 300, margin: "0 auto" }}>
-        <Space direction="vertical" size="large" style={{ width: "100%" }}>
-          <Title level={4}>{`Word ${currentWordIndex + 1} of ${
-            words.length
-          }`}</Title>
-          <Card onClick={handleCardClick} style={{ cursor: "pointer" }}>
-            {showAnswer ? (
-              <>
-                <Text strong>{currentWord.translation}</Text>
-                <br />
-                <Text>{currentWord.example}</Text>
-              </>
-            ) : (
-              <>
-                <Text strong style={{ marginRight: "10px" }}>
-                  {currentWord.word}
-                </Text>
-                {currentWord.types &&
-                  currentWord.types.map((type, index) => (
-                    <Tag key={index} color="blue">
-                      {type}
-                    </Tag>
-                  ))}
-              </>
-            )}
-          </Card>
-          <Space>
-            <Button
-              type="primary"
-              onClick={handlePreviousWord}
-              disabled={currentWordIndex === 0}
+      <>
+        <Title level={4}>{`Word ${currentWordIndex + 1} of ${
+          words.length
+        }`}</Title>
+        <Card style={{ width: 300, margin: "0 auto", textAlign: "center" }}>
+          <Space direction="vertical" size="large" style={{ width: "100%" }}>
+            <div
+              onClick={handleCardClick}
+              style={{
+                height: "150px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                borderRadius: "4px",
+                fontSize: "24px",
+              }}
             >
-              Previous
-            </Button>
-            <Button type="primary" onClick={handleNextWord}>
-              Next
-            </Button>
+              {showAnswer ? (
+                <>
+                  <Text strong style={{ fontSize: "24px" }}>
+                    {currentWord.translation}
+                  </Text>
+                  <Text style={{ fontSize: "18px" }}>
+                    {currentWord.example}
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Text
+                      strong
+                      style={{ marginRight: "10px", fontSize: "24px" }}
+                    >
+                      {currentWord.word}
+                    </Text>
+                    {currentWord.types &&
+                      currentWord.types.map((type, index) => (
+                        <Tag
+                          key={index}
+                          color="blue"
+                          style={{ fontSize: "18px" }}
+                        >
+                          {type}
+                        </Tag>
+                      ))}
+                  </div>
+                </>
+              )}
+            </div>
+            <Space></Space>
           </Space>
-        </Space>
-      </Card>
+        </Card>
+
+        <Button
+          type="primary"
+          onClick={handlePreviousWord}
+          disabled={currentWordIndex === 0}
+          style={{ margin: "10px", fontSize: "16px" }}
+        >
+          Previous
+        </Button>
+        <Button
+          type="primary"
+          onClick={handleNextWord}
+          style={{ margin: "10px", fontSize: "16px" }}
+        >
+          Next
+        </Button>
+      </>
     );
   };
 
   return (
     <>
       <Navbar />
-      <div style={{ padding: "20px" }}>
+      <div style={{ padding: "20px", textAlign: "center" }}>
         <Title level={2}>Flash Card Game</Title>
         <Space
           direction="vertical"
@@ -139,21 +180,27 @@ const FlashCards = () => {
           </Select>
         </Space>
         {!gameStarted ? (
-          <Space direction="vertical" size="large">
-            <Select
-              style={{ width: 200 }}
-              value={wordCount}
-              onChange={(value) => setWordCount(value)}
-            >
-              <Option value={5}>5 words</Option>
-              <Option value={10}>10 words</Option>
-              <Option value={15}>15 words</Option>
-              <Option value={20}>20 words</Option>
-            </Select>
-            <Button type="primary" onClick={handleStartGame}>
-              Start Game
-            </Button>
-          </Space>
+          <>
+            <Space direction="vertical" size="large">
+              <Select
+                style={{ width: 200 }}
+                value={wordCount}
+                onChange={(value) => setWordCount(value)}
+              >
+                <Option value={5}>5 words</Option>
+                <Option value={10}>10 words</Option>
+                <Option value={15}>15 words</Option>
+                <Option value={20}>20 words</Option>
+              </Select>
+            </Space>
+            <Row justify="center">
+              <Col>
+                <Button type="primary" onClick={handleStartGame}>
+                  Start Game
+                </Button>
+              </Col>
+            </Row>
+          </>
         ) : (
           renderGameContent()
         )}

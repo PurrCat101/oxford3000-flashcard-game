@@ -34,8 +34,8 @@ const formatted_oxford_3000 = [
   {
     id: 5,
     word: "able",
-    types: [],
-    level: "",
+    types: ["adj."],
+    level: "A2",
     translation: "",
     example: "",
   },
@@ -58,8 +58,8 @@ const formatted_oxford_3000 = [
   {
     id: 8,
     word: "abroad",
-    types: [],
-    level: "",
+    types: ["adv."],
+    level: "A2",
     translation: "",
     example: "",
   },
@@ -82,8 +82,8 @@ const formatted_oxford_3000 = [
   {
     id: 11,
     word: "absolute",
-    types: [],
-    level: "",
+    types: ["adj."],
+    level: "B2",
     translation: "",
     example: "",
   },
